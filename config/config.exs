@@ -17,7 +17,9 @@ config :naive_dice, NaiveDiceWeb.Endpoint,
   render_errors: [view: NaiveDiceWeb.ErrorView, accepts: ~w(html json)],
   pubsub: [name: NaiveDice.PubSub, adapter: Phoenix.PubSub.PG2]
 
-config :naive_dice, Stripe, api_key: System.get_env("STRIPE_API_KEY")
+config :naive_dice, Stripe,
+  api_key: System.get_env("STRIPE_API_KEY"),
+  public_key: System.get_env("STRIPE_PUBLIC_KEY")
 
 # Configures Elixir's Logger
 config :logger, :console,

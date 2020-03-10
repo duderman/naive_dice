@@ -20,7 +20,7 @@ defmodule NaiveDice.MixProject do
   def application do
     [
       mod: {NaiveDice.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :uri_query]
     ]
   end
 
@@ -43,7 +43,8 @@ defmodule NaiveDice.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:tesla, "~> 1.3.0"}
+      {:tesla, "~> 1.3.0"},
+      {:uri_query, "~> 0.1.1"}
     ]
   end
 

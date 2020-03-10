@@ -22,10 +22,10 @@ defmodule NaiveDice.Events do
     Ticket.changeset(%Ticket{})
   end
 
-  def reserve_ticket(_event, user_name) do
+  def reserve_ticket(_event, user_name, checkout_session_id) do
     # TODO: implement the right way
     %Ticket{}
-    |> Ticket.changeset(%{user_name: user_name})
+    |> Ticket.changeset(%{user_name: user_name, checkout_session_id: checkout_session_id})
     |> Repo.insert()
   end
 

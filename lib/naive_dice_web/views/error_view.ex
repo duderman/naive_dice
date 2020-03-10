@@ -5,6 +5,10 @@ defmodule NaiveDiceWeb.ErrorView do
     "HTTP 404: resource (e.g. Event) not found"
   end
 
+  def render("500.html", %{message: message}) do
+    "HTTP 500: " <> message
+  end
+
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.html" becomes
   # "Not Found".

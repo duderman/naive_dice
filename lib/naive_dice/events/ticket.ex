@@ -11,6 +11,7 @@ defmodule NaiveDice.Events.Ticket do
   # TODO: the schema is far from beging complete:
   schema "tickets" do
     field :user_name, :string
+    field :checkout_session_id, :string
 
     timestamps()
   end
@@ -18,7 +19,7 @@ defmodule NaiveDice.Events.Ticket do
   @doc false
   def changeset(ticket, attrs \\ %{}) do
     ticket
-    |> cast(attrs, [:user_name])
-    |> validate_required([:user_name])
+    |> cast(attrs, [:user_name, :checkout_session_id])
+    |> validate_required([:user_name, :checkout_session_id])
   end
 end

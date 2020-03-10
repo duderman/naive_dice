@@ -50,12 +50,15 @@ defmodule NaiveDiceWeb.TicketController do
   Reserves a ticket for 5 minutes
   """
   def create(conn, %{"event_id" => event_id, "ticket" => %{"user_name" => user_name}}) do
-    with {:ok, event} <- Events.get_event_by_id(event_id) do
-      # TODO: implement reservation "the right way" - handle all edge cases!!!
-      {:ok, ticket} = Events.reserve_ticket(event, user_name)
-
-      # TODO: I think a Ticket can represent both a pending reservation and a purchased ticket
-      # but you may have a different opinion :-)
+    with {:ok, event} <- Events.get_event_by_id(event_id),
+         {:ok, item} <- Stripe.Item.build(event),
+         {:ok, checkout_session_id} <-
+           Stripe.CheckoutSession.create(
+             item,
+             Routes.callback_url(conn, :success),
+             Routes.callback_url(conn, :cancel)
+           ),
+         {:ok, ticket} <- Events.reserve_ticket(event, user_name, checkout_session_id) do
       conn |> redirect(to: Routes.ticket_path(conn, :edit, ticket.id))
     end
   end

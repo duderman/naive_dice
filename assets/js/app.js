@@ -16,3 +16,17 @@ import "phoenix_html"
 //
 // Local files can be imported directly using relative paths, for example:
 // import socket from "./socket"
+
+
+document.redirectToCheckout = function (el) {
+    const checkoutSessionId = el.dataset.checkoutSessionId
+
+    if (! checkoutSessionId) {
+        throw "checkoutSessionId is Missing!"
+    }
+
+    const stripe = Stripe(STRIPE_API_KEY);
+    stripe.redirectToCheckout({sessionId: checkoutSessionId}).then(function (result) {
+        console.log(result)
+    });
+}

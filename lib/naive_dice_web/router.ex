@@ -27,10 +27,8 @@ defmodule NaiveDiceWeb.Router do
 
     resources("/guests", GuestController, only: [:index])
     delete "/guests/reset", GuestController, :reset_guests
-  end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", NaiveDiceWeb do
-  #   pipe_through :api
-  # end
+    get "/callback/success", CallbackController, :success
+    get "/callback/cancel", CallbackController, :cancel
+  end
 end

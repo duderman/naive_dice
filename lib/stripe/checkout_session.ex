@@ -1,15 +1,17 @@
 defmodule Stripe.CheckoutSession do
   alias Stripe.{Api, Item}
 
-  defstruct [:id]
-
-  @type t :: %__MODULE__{id: String.t()}
-
-  @spec create(Item.t(), String.t(), String.t()) :: {:ok, __MODULE__.t()}
+  @spec create(Item.t(), String.t(), String.t()) :: {:ok, String.t()}
   def create(item = %Item{}, success_url, cancel_url) do
     build_payload(item, success_url, cancel_url)
     |> Api.checkout_session()
     |> parse_response
+  end
+
+  defp build_payload(item = %Item{}, s, c) do
+    item
+    |> Map.from_struct()
+    |> build_payload(s, c)
   end
 
   defp build_payload(item, success_url, cancel_url) do
@@ -21,6 +23,13 @@ defmodule Stripe.CheckoutSession do
     }
   end
 
-  defp parse_response({:ok, %{body: %{"id" => id}}}), do: {:ok, %__MODULE__{id: id}}
-  defp parse_response(_), do: {:error, "Wrong Stripe response"}
+  defp parse_response({:ok, %{body: %{"id" => id}}}), do: {:ok, id}
+
+  defp parse_response({:ok, %{body: %{"error" => %{"message" => error_message}}}}),
+    do: {:error, error_message}
+
+  defp parse_response(z) do
+    IO.inspect(z)
+    {:error, "Wrong Stripe response"}
+  end
 end
