@@ -35,6 +35,6 @@ defmodule NaiveDiceWeb.EventController do
   end
 
   defp build_callback_url(conn) do
-    Routes.payment_url(conn, :process) <> "?session_id={CHECKOUT_SESSION_ID}"
+    Routes.payment_url(conn, :process) <> "?checkout_session_id={CHECKOUT_SESSION_ID}"
   end
 end

@@ -3,8 +3,6 @@ defmodule NaiveDiceWeb.TicketController do
 
   alias NaiveDice.Tickets
 
-  action_fallback(NaiveDiceWeb.FallbackController)
-
   def show(conn, %{"id" => ticket_id}) do
     with {:ok, ticket} <- Tickets.get_by_id(ticket_id) do
       render(conn, "show.html", %{ticket: ticket})

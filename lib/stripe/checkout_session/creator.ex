@@ -1,5 +1,6 @@
 defmodule Stripe.CheckoutSession.Creator do
-  alias Stripe.{Api, Item}
+  alias Stripe.Item
+  alias Stripe.CheckoutSession.Api
 
   @spec create(%{title: String.t()}, String.t()) ::
           {:error, String.t()} | {:ok, String.t()}
@@ -7,7 +8,7 @@ defmodule Stripe.CheckoutSession.Creator do
     event
     |> Item.build()
     |> build_payload(callback_url)
-    |> Api.checkout_session()
+    |> Api.create()
     |> parse_response()
   end
 
@@ -31,8 +32,5 @@ defmodule Stripe.CheckoutSession.Creator do
   defp parse_response({:ok, %{body: %{"error" => %{"message" => error_message}}}}),
     do: {:error, error_message}
 
-  defp parse_response(z) do
-    IO.inspect(z)
-    {:error, "Wrong Stripe response"}
-  end
+  defp parse_response(_), do: {:error, "Wrong Stripe response"}
 end

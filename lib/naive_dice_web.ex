@@ -24,6 +24,8 @@ defmodule NaiveDiceWeb do
       import Plug.Conn
       import NaiveDiceWeb.Gettext
       alias NaiveDiceWeb.Router.Helpers, as: Routes
+
+      action_fallback(NaiveDiceWeb.FallbackController)
     end
   end
 

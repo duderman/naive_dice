@@ -3,10 +3,11 @@ defmodule NaiveDice.Tickets do
   alias NaiveDice.Events.Event
   alias NaiveDice.{Repo, RepoHelpers}
 
-  @spec reserve(%Event{}, String.t(), String.t()) :: {:ok, %Ticket{}}
+  @spec reserve(%Event{}, String.t(), String.t()) ::
+          {:ok, %Ticket{}} | {:error, Ecto.Changeset.t()}
   def reserve(event, user_name, checkout_session_id) do
     %Ticket{}
-    |> to_changeset(event, user_name, checkout_session_id)
+    |> to_create_changeset(event, user_name, checkout_session_id)
     |> Repo.insert()
   end
 
@@ -25,7 +26,39 @@ defmodule NaiveDice.Tickets do
     |> RepoHelpers.get_result()
   end
 
-  defp to_changeset(ticket, event, user_name, checkout_session_id) do
+  @spec get_by_checkout_session_id(String.t()) :: {:error, :not_found} | {:ok, %Ticket{}}
+  def get_by_checkout_session_id(checkout_session_id) do
+    Ticket
+    |> Repo.get_by(%{checkout_session_id: checkout_session_id})
+    |> RepoHelpers.get_result()
+  end
+
+  @spec paid(%Ticket{}) :: {:ok, %Ticket{}} | {:error, Ecto.Changeset.t()}
+  def paid(ticket) do
+    ticket
+    |> Ticket.changeset(%{paid_at: DateTime.utc_now()})
+    |> Repo.update()
+  end
+
+  @spec delete!(%Ticket{}) :: %Ticket{}
+  def delete!(ticket) do
+    Repo.delete!(ticket)
+  end
+
+  @spec update_status(%Ticket{}, String.t()) ::
+          {:ok, %Ticket{}}
+          | {:error, Ecto.Changeset.t()}
+          | {:error, :deleted | :unknown_status, %Ticket{}}
+  def update_status(ticket, "succeeded"), do: paid(ticket)
+
+  def update_status(ticket, "canceled") do
+    delete!(ticket)
+    {:error, :deleted, ticket}
+  end
+
+  def update_status(ticket, _), do: {:error, :unknown_status, ticket}
+
+  defp to_create_changeset(ticket, event, user_name, checkout_session_id) do
     Ticket.changeset(ticket, %{
       event: event,
       user_name: user_name,
