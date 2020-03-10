@@ -1,5 +1,5 @@
 defmodule NaiveDice.Events.Event do
-  use Ecto.Schema
+  use NaiveDice.Schema
   import Ecto.Changeset
 
   schema "events" do

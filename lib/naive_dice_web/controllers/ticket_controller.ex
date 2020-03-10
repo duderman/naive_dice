@@ -1,21 +1,14 @@
 defmodule NaiveDiceWeb.TicketController do
   use NaiveDiceWeb, :controller
-  alias NaiveDice.Events
+  alias NaiveDice.{Events, Tickets}
+  alias NaiveDice.Tickets.Ticket
 
   action_fallback(NaiveDiceWeb.FallbackController)
 
-  # STEPS OF THE WIZARD
-
-  @doc """
-  STEP 1: Renders an empty form with user name input
-  That's an entry point for the booking flow.
-  """
   def new(conn, %{"event_id" => event_id}) do
     with {:ok, event} <- Events.get_event_by_id(event_id) do
-      # TODO: implement this
       remaining_tickets = 5
 
-      # see https://hexdocs.pm/phoenix_html/Phoenix.HTML.Form.html
       render(conn, "new.html", %{
         changeset: Events.new_ticket_changeset(),
         event: event,
@@ -24,33 +17,15 @@ defmodule NaiveDiceWeb.TicketController do
     end
   end
 
-  @doc """
-  STEP 2: Renders the Stripe payment form
-  """
-  def edit(conn, %{"id" => ticket_id}) do
-    # TODO: implement this
-    with {:ok, ticket} <- Events.get_ticket_by_id(ticket_id) do
-      render(conn, "edit.html", %{ticket: ticket})
-    end
-  end
-
-  @doc """
-  STEP 3: Renders the confirmation / receipt / thank you screen
-  """
   def show(conn, %{"id" => ticket_id}) do
-    # TODO: don't render a pending ticket as a successfully purchased one
-    with {:ok, ticket} <- Events.get_ticket_by_id(ticket_id) do
+    with {:ok, ticket} <- Tickets.get_by_id(ticket_id) do
       render(conn, "show.html", %{ticket: ticket})
     end
   end
 
-  # TRANSITIONS BETWEEN WIZARD STEPS
-
-  @doc """
-  Reserves a ticket for 5 minutes
-  """
-  def create(conn, %{"event_id" => event_id, "ticket" => %{"user_name" => user_name}}) do
-    with {:ok, event} <- Events.get_event_by_id(event_id),
+  def reserve(conn, %{"event_id" => event_id, "ticket" => %{"user_name" => user_name}}) do
+    with {:ok, event} <- Events.get_by_id(event_id),
+         {:error, :not_found} <- Tickets.get_by_event_id_and_user_name(event.id, user_name),
          {:ok, item} <- Stripe.Item.build(event),
          {:ok, checkout_session_id} <-
            Stripe.CheckoutSession.create(
@@ -58,8 +33,11 @@ defmodule NaiveDiceWeb.TicketController do
              Routes.callback_url(conn, :success),
              Routes.callback_url(conn, :cancel)
            ),
-         {:ok, ticket} <- Events.reserve_ticket(event, user_name, checkout_session_id) do
+         {:ok, ticket} <- Tickets.reserve(event.id, user_name, checkout_session_id) do
       conn |> redirect(to: Routes.ticket_path(conn, :edit, ticket.id))
+    else
+      {:ok, ticket = %Ticket{}} ->
+        conn |> redirect(to: Routes.ticket_path(conn, :show, ticket.id))
     end
   end
 
