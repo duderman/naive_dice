@@ -9,26 +9,22 @@ defmodule NaiveDiceWeb.Router do
     plug :put_secure_browser_headers
   end
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
   scope "/", NaiveDiceWeb do
     pipe_through :browser
 
     get "/", EventController, :index
 
     resources("/events", EventController, only: [:index, :show]) do
-      resources("/tickets", TicketController, only: [:new, :create])
+      post "/reserve", EventController, :reserve
     end
 
-    # event_id is captured on a Ticket already - no need to have it in a route
-    resources("/tickets", TicketController, only: [:edit, :update, :show])
+    resources("/tickets", TicketController, only: [:show]) do
+      get "/checkout", TicketController, :checkout
+    end
 
     resources("/guests", GuestController, only: [:index])
-    delete "/guests/reset", GuestController, :reset_guests
+    delete "/guests/reset", GuestController, :reset
 
-    get "/callback/success", CallbackController, :success
-    get "/callback/cancel", CallbackController, :cancel
+    get "/process_payment", PaymentController, :process
   end
 end

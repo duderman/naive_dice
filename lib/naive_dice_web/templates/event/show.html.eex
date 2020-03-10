@@ -17,7 +17,7 @@ only <%= @remaining_tickets %> ticket(s) left
 <br>
 <br>
 
-<%= form_for @changeset, Routes.event_ticket_path(@conn, :create, @event.id), fn f -> %>
+<%= form_for @conn, Routes.event_event_path(@conn, :reserve, @event.id), fn f -> %>
   <div class="col-md-6 mb-3">
     <label>YOUR NAME </label>
     <br>

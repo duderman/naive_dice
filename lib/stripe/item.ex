@@ -8,8 +8,8 @@ defmodule Stripe.Item do
           quantity: integer
         }
 
-  @spec build(%{title: String.t()}) :: {:ok, Stripe.Item.t()}
+  @spec build(%{title: String.t()}) :: __MODULE__.t()
   def build(%{title: title}) do
-    {:ok, %__MODULE__{name: title, amount: 500}}
+    %__MODULE__{name: title, amount: 500}
   end
 end
