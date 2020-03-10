@@ -23,7 +23,7 @@ defmodule NaiveDiceWeb.EventController do
     with {:error, :not_found} <- Tickets.get_by_event_id_and_user_name(event_id, user_name),
          {:ok, event} <- Events.get_by_id(event_id),
          callback_url = build_callback_url(conn),
-         {:ok, checkout_session_id} <- Stripe.CheckoutSession.create(event, callback_url),
+         {:ok, checkout_session_id} <- Stripe.CheckoutSession.Creator.create(event, callback_url),
          {:ok, ticket} <- Tickets.reserve(event, user_name, checkout_session_id) do
       conn |> redirect(to: Routes.ticket_ticket_path(conn, :checkout, ticket.id))
     else

@@ -1,4 +1,4 @@
-defmodule Stripe.CheckoutSession do
+defmodule Stripe.CheckoutSession.Creator do
   alias Stripe.{Api, Item}
 
   @spec create(%{title: String.t()}, String.t()) ::
