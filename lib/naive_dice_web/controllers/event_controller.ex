@@ -28,7 +28,9 @@ defmodule NaiveDiceWeb.EventController do
       conn |> redirect(to: Routes.ticket_ticket_path(conn, :checkout, ticket.id))
     else
       {:ok, ticket = %Ticket{}} ->
-        conn |> redirect(to: Routes.ticket_path(conn, :show, ticket.id))
+        conn
+        |> put_flash(:info, "Ticket is already bought")
+        |> redirect(to: Routes.ticket_path(conn, :show, ticket.id))
     end
   end
 
