@@ -1,0 +1,5 @@
+HTTP 404: resource not found
+
+<br />
+
+<%= back_to_root_link %>

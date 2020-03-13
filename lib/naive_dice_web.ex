@@ -42,6 +42,7 @@ defmodule NaiveDiceWeb do
       use Phoenix.HTML
 
       import NaiveDiceWeb.ErrorHelpers
+      import NaiveDiceWeb.ViewHelpers
       import NaiveDiceWeb.Gettext
       alias NaiveDiceWeb.Router.Helpers, as: Routes
     end
