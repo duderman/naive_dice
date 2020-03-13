@@ -12,12 +12,6 @@ defmodule Stripe.CheckoutSession.Creator do
     |> parse_response()
   end
 
-  defp build_payload(item = %Item{}, s) do
-    item
-    |> Map.from_struct()
-    |> build_payload(s)
-  end
-
   defp build_payload(item, callback_url) do
     %{
       payment_method_types: ["card"],
