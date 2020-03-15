@@ -58,9 +58,9 @@ defmodule NaiveDice.Tickets do
 
   def update_status(ticket, _), do: {:error, :unknown_status, ticket}
 
-  defp to_create_changeset(ticket, event, user_name, checkout_session_id) do
+  defp to_create_changeset(ticket, %{id: event_id}, user_name, checkout_session_id) do
     Ticket.changeset(ticket, %{
-      event: event,
+      event_id: event_id,
       user_name: user_name,
       checkout_session_id: checkout_session_id
     })

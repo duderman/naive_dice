@@ -14,6 +14,13 @@ defmodule NaiveDice do
     end
   end
 
+  def query do
+    quote do
+      import Ecto.Query
+      alias NaiveDice.Repo
+    end
+  end
+
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
   end

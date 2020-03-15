@@ -5,6 +5,8 @@ defmodule NaiveDice.Events.Event do
     field :allocation, :integer
     field :title
 
+    has_many :tickets, NaiveDice.Tickets.Ticket
+
     timestamps()
   end
 

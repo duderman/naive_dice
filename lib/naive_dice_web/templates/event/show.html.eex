@@ -8,23 +8,22 @@ Renders an empty form with user name input. That's an entry point for the bookin
   FOR <%= @event.title %>
 </h1>
 
-<p>
-only <%= @remaining_tickets %> ticket(s) left
-</p>
+<%= if @remaining_tickets > 0 do %>
+  <p>only <%= @remaining_tickets %> ticket(s) left</p>
 
-<br>
-<br>
-<br>
-<br>
+  <%= form_for @conn, Routes.event_event_path(@conn, :reserve, @event.id), fn f -> %>
+    <div class="col-md-6 mb-3">
+      <label>YOUR NAME </label>
+      <br>
+      <%= text_input f, :user_name, required: true, class: "form-control", placeholder: "e.g John Doe" %>
 
-<%= form_for @conn, Routes.event_event_path(@conn, :reserve, @event.id), fn f -> %>
-  <div class="col-md-6 mb-3">
-    <label>YOUR NAME </label>
-    <br>
-    <%= text_input f, :user_name, required: true, class: "form-control", placeholder: "e.g John Doe" %>
+      <br>
 
-    <br>
-
-    <%= submit "Reserve ticket for 5 minutes", class: "btn btn-primary" %>
-  </div>
+      <%= submit "Reserve ticket for 5 minutes", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% else %>
+  Sorry. All the tickets are gone
+  <br />
+  <%= back_to_root_link() %>
 <% end %>

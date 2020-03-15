@@ -13,7 +13,7 @@ defmodule NaiveDice.Tickets.Ticket do
   def changeset(ticket, attrs \\ %{}) do
     ticket
     |> cast(attrs, [:event_id, :user_name, :checkout_session_id, :paid_at])
-    |> validate_required([:user_name, :checkout_session_id])
+    |> validate_required([:user_name, :checkout_session_id, :event_id])
     |> assoc_constraint(:event)
     |> unique_constraint(:checkout_session_id)
     |> unique_constraint(:user_name, name: :tickets_event_id_user_name_index)

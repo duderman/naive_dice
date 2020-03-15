@@ -12,9 +12,8 @@ defmodule NaiveDiceWeb.EventController do
   end
 
   def show(conn, %{"id" => id}) do
-    remaining_tickets = 5
-
     with {:ok, event} <- Events.get_by_id(id) do
+      remaining_tickets = NaiveDice.Events.remaining_tickets(event)
       render(conn, "show.html", %{event: event, remaining_tickets: remaining_tickets})
     end
   end
