@@ -9,7 +9,7 @@ Renders an empty form with user name input. That's an entry point for the bookin
 </h1>
 
 <%= if @remaining_tickets > 0 do %>
-  <p>only <%= @remaining_tickets %> ticket(s) left</p>
+  <p>only <%= @remaining_tickets %> <%= pluralize("ticket", @remaining_tickets) %> left</p>
 
   <%= form_for @conn, Routes.event_event_path(@conn, :reserve, @event.id), fn f -> %>
     <div class="col-md-6 mb-3">
