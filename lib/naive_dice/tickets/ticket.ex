@@ -1,10 +1,5 @@
 defmodule NaiveDice.Tickets.Ticket do
-  @moduledoc """
-  This schema represents a purchased ticket
-  """
-
-  use NaiveDice.Schema
-  import Ecto.Changeset
+  use NaiveDice, :model
 
   schema "tickets" do
     belongs_to :event, NaiveDice.Events.Event
