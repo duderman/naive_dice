@@ -1,6 +1,5 @@
 defmodule NaiveDice.Events.BoughtTicketsQuery do
   use NaiveDice, :query
-  alias NaiveDice.Tickets.Ticket
 
   def count(event_id) do
     event_id

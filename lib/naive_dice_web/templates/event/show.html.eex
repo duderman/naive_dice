@@ -25,3 +25,5 @@ Renders an empty form with user name input. That's an entry point for the bookin
 <% else %>
   Sorry. All tickets are gone
 <% end %>
+
+<%= guests_link(@event.id) %>

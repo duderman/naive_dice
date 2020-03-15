@@ -1,8 +1,6 @@
 defmodule NaiveDice.Tickets.Cleaner.Deleter do
   use NaiveDice, :query
 
-  alias NaiveDice.Tickets.Ticket
-
   @spec delete(list(%Ticket{})) :: {integer, nil | [term]}
   def delete([]), do: {0, nil}
 

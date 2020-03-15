@@ -8,4 +8,8 @@ defmodule NaiveDiceWeb.ViewHelpers do
 
   def pluralize(word, 1), do: word
   def pluralize(word, _), do: word <> "s"
+
+  def guests_link(event_id) do
+    link("Guests list", to: event_guest_path(NaiveDiceWeb.Endpoint, :index, event_id))
+  end
 end

@@ -18,6 +18,8 @@ defmodule NaiveDice do
     quote do
       import Ecto.Query
       alias NaiveDice.Repo
+      alias NaiveDice.Tickets.Ticket
+      alias NaiveDice.Events.Event
     end
   end
 

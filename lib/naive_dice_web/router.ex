@@ -16,12 +16,12 @@ defmodule NaiveDiceWeb.Router do
 
     resources("/events", EventController, only: [:index, :show]) do
       post "/reserve", EventController, :reserve
+
+      resources("/guests", GuestController, only: [:index])
+      delete "/guests/reset", GuestController, :reset
     end
 
     resources("/tickets", TicketController, only: [:show])
-
-    resources("/guests", GuestController, only: [:index])
-    delete "/guests/reset", GuestController, :reset
 
     get "/process_payment", PaymentController, :process
   end

@@ -1,28 +1,23 @@
 defmodule NaiveDiceWeb.GuestController do
   use NaiveDiceWeb, :controller
 
-  @doc """
-  Lists all the guests in the system, across all events (we have just 1 event in seeds.exs)
-  Since we only sell 1 ticket per person, just render the list of tickets
-  """
-  def index(conn, _params) do
-    guest_names = [
-      "John Doe",
-      "Alice Brown",
-      "Ben Smith"
-    ]
+  alias NaiveDice.Events.{GuestNamesQuery, Reset}
+  alias NaiveDice.Events
 
-    render(conn, "index.html", %{guest_names: guest_names})
+  def index(conn, %{"event_id" => event_id}) do
+    with {:ok, _event} <- Events.get_by_id(event_id) do
+      guest_names = GuestNamesQuery.all(event_id)
+      render(conn, "index.html", %{guest_names: guest_names, event_id: event_id})
+    end
   end
 
-  @doc """
-  Helper method which returns the system into the original state (useful for testing)
-  """
-  def reset_guests(conn, _params) do
-    # TODO: delete all tickets here.
+  def reset(conn, %{"event_id" => event_id}) do
+    with {:ok, _event} <- Events.get_by_id(event_id) do
+      Reset.reset(event_id)
 
-    conn
-    |> put_flash(:info, "All tickets deleted. Starting from scratch.")
-    |> redirect(to: "/")
+      conn
+      |> put_flash(:info, "All tickets deleted. Starting from scratch.")
+      |> redirect(to: Routes.event_path(conn, :show, event_id))
+    end
   end
 end
