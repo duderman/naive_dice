@@ -1,6 +1,5 @@
 defmodule NaiveDice.Tickets do
   alias NaiveDice.Tickets.Ticket
-  alias NaiveDice.Events.Event
   alias NaiveDice.{Repo, RepoHelpers}
 
   @spec get_by_id(String.t()) :: {:ok, %Ticket{}} | {:error, :not_found}

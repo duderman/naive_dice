@@ -23,5 +23,5 @@ Renders an empty form with user name input. That's an entry point for the bookin
     </div>
   <% end %>
 <% else %>
-  Sorry. All the tickets are gone
+  Sorry. All tickets are gone
 <% end %>

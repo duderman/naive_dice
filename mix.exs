@@ -44,7 +44,8 @@ defmodule NaiveDice.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:tesla, "~> 1.3.0"},
-      {:uri_query, "~> 0.1.1"}
+      {:uri_query, "~> 0.1.1"},
+      {:mutex, "~> 1.1.0"}
     ]
   end
 
