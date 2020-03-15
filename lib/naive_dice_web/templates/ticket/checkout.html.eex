@@ -1,7 +1,7 @@
 <div class="all-bold">
     <p>Nice to meet you <%= @ticket.user_name %>!</p>
     <p>
-    We reserved your ticket for 5 minutes
+    We reserved your ticket for <%= @reservation_time %> minutes
     <br>
     Please complete the purchase using a test credit card
     </p>

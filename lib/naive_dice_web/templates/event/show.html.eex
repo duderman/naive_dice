@@ -19,7 +19,7 @@ Renders an empty form with user name input. That's an entry point for the bookin
 
       <br>
 
-      <%= submit "Reserve ticket for 5 minutes", class: "btn btn-primary" %>
+      <%= submit "Reserve ticket for #{@reservation_time} minutes", class: "btn btn-primary" %>
     </div>
   <% end %>
 <% else %>

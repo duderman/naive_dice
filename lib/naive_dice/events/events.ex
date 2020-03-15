@@ -21,4 +21,11 @@ defmodule NaiveDice.Events do
     |> (&(allocation - &1)).()
     |> max(0)
   end
+
+  @spec reservation_time_in_minutes() :: integer
+  def reservation_time_in_minutes() do
+    Application.get_env(:naive_dice, :reservation_time)
+    |> (&(&1 / 60_000)).()
+    |> round()
+  end
 end
