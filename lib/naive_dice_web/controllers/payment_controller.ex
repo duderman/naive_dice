@@ -18,7 +18,7 @@ defmodule NaiveDiceWeb.PaymentController do
         {:error, :unknown_status, %{id: id}} ->
           conn
           |> put_flash(:error, "Something went wrong with the payment. Try again Please")
-          |> redirect(to: Routes.ticket_ticket_path(conn, :checkout, id))
+          |> redirect(to: Routes.ticket_path(conn, :show, id))
       end
     end
   end

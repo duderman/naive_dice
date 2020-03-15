@@ -5,13 +5,11 @@ defmodule NaiveDiceWeb.TicketController do
 
   def show(conn, %{"id" => ticket_id}) do
     with {:ok, ticket} <- Tickets.get_by_id(ticket_id) do
-      render(conn, "show.html", %{ticket: ticket})
+      template = ticket_template(ticket)
+      render(conn, template, %{ticket: ticket})
     end
   end
 
-  def checkout(conn, %{"ticket_id" => ticket_id}) do
-    with {:ok, ticket} <- Tickets.get_by_id(ticket_id) do
-      render(conn, "checkout.html", %{ticket: ticket})
-    end
-  end
+  defp ticket_template(%{paid_at: nil}), do: :checkout
+  defp ticket_template(_), do: :show
 end

@@ -3,14 +3,6 @@ defmodule NaiveDice.Tickets do
   alias NaiveDice.Events.Event
   alias NaiveDice.{Repo, RepoHelpers}
 
-  @spec reserve(%Event{}, String.t(), String.t()) ::
-          {:ok, %Ticket{}} | {:error, Ecto.Changeset.t()}
-  def reserve(event, user_name, checkout_session_id) do
-    %Ticket{}
-    |> to_create_changeset(event, user_name, checkout_session_id)
-    |> Repo.insert()
-  end
-
   @spec get_by_id(String.t()) :: {:ok, %Ticket{}} | {:error, :not_found}
   def get_by_id(id) do
     Ticket
@@ -57,12 +49,4 @@ defmodule NaiveDice.Tickets do
   end
 
   def update_status(ticket, _), do: {:error, :unknown_status, ticket}
-
-  defp to_create_changeset(ticket, %{id: event_id}, user_name, checkout_session_id) do
-    Ticket.changeset(ticket, %{
-      event_id: event_id,
-      user_name: user_name,
-      checkout_session_id: checkout_session_id
-    })
-  end
 end
