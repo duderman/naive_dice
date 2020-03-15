@@ -13,7 +13,9 @@ defmodule NaiveDice.Application do
       # Start the endpoint when the application starts
       NaiveDiceWeb.Endpoint,
       # Event mutex
-      {Mutex, name: EventsMutex}
+      {Mutex, name: EventsMutex},
+      # Reservations cleaner
+      NaiveDice.Tickets.Cleaner.Worker
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -21,6 +21,12 @@ config :naive_dice, Stripe,
   api_key: System.get_env("STRIPE_API_KEY"),
   public_key: System.get_env("STRIPE_PUBLIC_KEY")
 
+# 5 minutes
+config :naive_dice, :reservation_time, 5 * 60 * 1000
+
+# 2 seconds
+config :naive_dice, :tickets_cleaning_period, 2 * 1000
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
