@@ -11,6 +11,12 @@
       <br>
       <br>
       <%= render @view_module, @view_template, assigns %>
+      <br>
+      <br>
+      <br>
+      <%= if @conn.request_path != "/" do %>
+        <%= back_to_root_link() %>
+      <% end %>
     </div>
     <script type="text/javascript">
       const STRIPE_API_KEY='<%= Application.get_env(:naive_dice, Stripe)[:public_key] %>';

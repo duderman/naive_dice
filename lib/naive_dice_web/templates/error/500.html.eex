@@ -1,5 +1,1 @@
 HTTP 500: <%= @message %>
-
-<br />
-
-<%= back_to_root_link() %>

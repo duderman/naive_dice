@@ -7,4 +7,4 @@
     </p>
 </div>
 
-<button id="pay-btn" class="btn btn-primary" data-checkout-session-id="<%= @ticket.checkout_session_id %>" onclick="redirectToCheckout(this)">Pay</div>
+<button id="pay-btn" class="btn btn-primary" data-checkout-session-id="<%= @ticket.checkout_session_id %>" onclick="redirectToCheckout(this)">Pay</button>
