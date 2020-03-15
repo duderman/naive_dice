@@ -8,7 +8,7 @@ defmodule NaiveDice.Tickets.Reservation do
   def reserve(event = %Event{id: event_id}, user_name, callback_url) do
     with {:ok, :doesnt_exist} <- ticket_exists?(event_id, user_name),
          {:ok, checkout_session_id} <- Stripe.CheckoutSession.Creator.create(event, callback_url) do
-      do_reserve(event, user_name, checkout_session_id)
+      do_reserve(event_id, user_name, checkout_session_id)
     end
   end
 
