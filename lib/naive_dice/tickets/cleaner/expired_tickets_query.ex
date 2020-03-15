@@ -3,11 +3,11 @@ defmodule NaiveDice.Tickets.Cleaner.ExpiredTicketsQuery do
   alias NaiveDice.Tickets.Ticket
 
   @spec all(integer) :: list(%Ticket{})
-  def all(ttl) do
+  def all(ttl, opts \\ []) do
     tickets()
     |> not_paid()
     |> reserved_ms_ago(ttl)
-    |> Repo.all()
+    |> Repo.all(opts)
   end
 
   defp tickets do

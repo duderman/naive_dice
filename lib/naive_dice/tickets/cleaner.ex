@@ -7,7 +7,7 @@ defmodule NaiveDice.Tickets.Cleaner do
   @spec clean() :: {integer(), nil | [term()]}
   def clean() do
     @reservation_time
-    |> ExpiredTicketsQuery.all()
+    |> ExpiredTicketsQuery.all(log: false)
     |> log()
     |> Deleter.delete()
   end
