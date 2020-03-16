@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    app: naive_dice
+spec:
+  selector:
+    matchLabels:
+      app: naive_dice
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: naive_dice
+    spec:
+      restartPolicy: Always
+      containers:
+      - image: duderman/naive_dice:latest
+        name: web
+        ports:
+        - containerPort: 4000
+        env:
+        - name: DATABASE_DB
+          value: naive_dice
+        - name: DATABASE_HOST
+          value: db
+        - name: DATABASE_PORT
+          value: "5432"
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secrets
+              key: DATABASE_PASSWORD
+        - name: HOST
+          value: app.naivedice.site
+        - name: PORT
+          value: "4000"
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: SECRET_KEY_BASE
+        - name: STRIPE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: STRIPE_API_KEY
+        - name: STRIPE_PUBLIC_KEY
+          valueFrom:
+            secretKeyRef:
+              name: app-secrets
+              key: STRIPE_PUBLIC_KEY

@@ -1,0 +1,13 @@
+_build/
+.elixir_ls
+.vscode
+deps/
+.git/
+.gitignore
+Dockerfile
+Makefile
+README*
+test/
+priv/static/
+assets/node_modules
+k8s/
