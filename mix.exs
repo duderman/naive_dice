@@ -50,7 +50,8 @@ defmodule NaiveDice.MixProject do
       {:mutex, "~> 1.1.0"},
       {:distillery, "~> 2.0"},
       {:credo, "~> 1.2", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.5.0", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 0.5.0", only: [:dev, :test], runtime: false},
+      {:wallaby, "~> 0.23.0", only: :test, runtime: false}
     ]
   end
 

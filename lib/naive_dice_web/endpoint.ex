@@ -39,4 +39,8 @@ defmodule NaiveDiceWeb.Endpoint do
     signing_salt: "oec5Ai3M"
 
   plug NaiveDiceWeb.Router
+
+  if Application.get_env(:your_app, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
 end

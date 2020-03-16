@@ -1,7 +1,3 @@
-<!--
-Renders an empty form with user name input. That's an entry point for the booking flow.
--->
-
 <h1>
   DON'T MISS YOUR TICKETS
   <br>
@@ -23,7 +19,7 @@ Renders an empty form with user name input. That's an entry point for the bookin
     </div>
   <% end %>
 <% else %>
-  Sorry. All tickets are gone
+  <p>Sorry. All tickets are gone</p>
 <% end %>
 
 <%= guests_link(@event.id) %>

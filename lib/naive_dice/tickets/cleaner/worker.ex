@@ -18,7 +18,7 @@ defmodule NaiveDice.Tickets.Cleaner.Worker do
   end
 
   def handle_info(:clean, state) do
-    clean()
+    clean(Mix.env())
     schedule()
     {:noreply, state}
   end
@@ -27,7 +27,9 @@ defmodule NaiveDice.Tickets.Cleaner.Worker do
     Process.send_after(self(), :clean, @periodicity)
   end
 
-  defp clean do
+  defp clean(:test), do: :ok
+
+  defp clean(_) do
     Cleaner.clean()
   end
 end

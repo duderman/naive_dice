@@ -12,11 +12,15 @@ config :naive_dice, NaiveDice.Repo,
 # you can enable the server option below.
 config :naive_dice, NaiveDiceWeb.Endpoint,
   http: [port: 4002],
-  server: false
+  server: true
 
 config :naive_dice, Stripe, api_key: "STRIPE_API_KEY"
 
 # Print only warnings and errors during test
 config :logger, level: :warn
 
-config :tesla, adapter: Tesla.Mock
+config :tesla, adapter: NaiveDice.TeslaMockAdapter
+
+config :naive_dice, :sql_sandbox, true
+
+config :wallaby, screenshot_on_failure: true
