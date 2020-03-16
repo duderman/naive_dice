@@ -36,3 +36,5 @@ npm-debug.log
 /priv/static/
 
 k8s/secrets.yaml
+
+screenshots

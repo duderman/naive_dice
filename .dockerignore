@@ -11,3 +11,4 @@ test/
 priv/static/
 assets/node_modules
 k8s/
+screenshots/
