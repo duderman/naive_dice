@@ -1,5 +1,6 @@
 defmodule NaiveDice.Events do
-  alias NaiveDice.Events.{Event, BoughtTicketsQuery}
+  @moduledoc false
+  alias NaiveDice.Events.{BoughtTicketsQuery, Event}
   alias NaiveDice.{Repo, RepoHelpers}
 
   @spec all :: list(%Event{})
@@ -23,7 +24,7 @@ defmodule NaiveDice.Events do
   end
 
   @spec reservation_time_in_minutes() :: integer
-  def reservation_time_in_minutes() do
+  def reservation_time_in_minutes do
     Application.get_env(:naive_dice, :reservation_time)
     |> (&(&1 / 60_000)).()
     |> round()

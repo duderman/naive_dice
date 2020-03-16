@@ -1,7 +1,7 @@
 defmodule NaiveDiceWeb.TicketController do
   use NaiveDiceWeb, :controller
 
-  alias NaiveDice.{Tickets, Events}
+  alias NaiveDice.{Events, Tickets}
 
   def show(conn, %{"id" => ticket_id}) do
     with {:ok, ticket} <- Tickets.get_by_id(ticket_id) do

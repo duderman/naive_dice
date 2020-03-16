@@ -1,4 +1,6 @@
 defmodule NaiveDice.Tickets.Ticket do
+  @moduledoc false
+
   use NaiveDice, :model
 
   schema "tickets" do

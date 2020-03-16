@@ -1,6 +1,11 @@
 defmodule Stripe.CheckoutSession.StatusChecker do
+  @moduledoc """
+  Checks Stripe checkout session through their API
+  """
+
   alias Stripe.CheckoutSession.Api
 
+  @spec check(String.t()) :: {:ok, String.t()} | {:error, String.t()}
   def check(id) do
     id
     |> Api.fetch()

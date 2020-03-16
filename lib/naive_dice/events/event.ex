@@ -1,4 +1,5 @@
 defmodule NaiveDice.Events.Event do
+  @moduledoc false
   use NaiveDice, :model
 
   schema "events" do

@@ -1,4 +1,7 @@
 defmodule NaiveDice.Tickets.Cleaner.ExpiredTicketsQuery do
+  @moduledoc """
+  Returns all expired tickets
+  """
   use NaiveDice, :query
   alias NaiveDice.Tickets.Ticket
 

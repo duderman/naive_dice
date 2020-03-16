@@ -2,6 +2,7 @@ defmodule NaiveDiceWeb.EventController do
   use NaiveDiceWeb, :controller
 
   alias NaiveDice.Events
+  alias NaiveDice.Tickets.Reservation
 
   def index(conn, _params) do
     events = Events.all()
@@ -26,7 +27,7 @@ defmodule NaiveDiceWeb.EventController do
     with {:ok, event} <- Events.get_by_id(event_id) do
       callback_url = build_callback_url(conn)
 
-      case NaiveDice.Tickets.Reservation.reserve(event, user_name, callback_url) do
+      case Reservation.reserve(event, user_name, callback_url) do
         {:ok, ticket} ->
           redirect_to_ticket(conn, ticket)
 

@@ -1,4 +1,7 @@
 defmodule NaiveDice.Events.BoughtTicketsQuery do
+  @moduledoc """
+  Query to get amount of bought tickets for a specific event
+  """
   use NaiveDice, :query
 
   def count(event_id) do

@@ -1,4 +1,7 @@
 defmodule Stripe.Item do
+  @moduledoc """
+  Represents Stripe APIs line item
+  """
   defstruct [:name, :amount, currency: "gbp", quantity: 1]
 
   @type t :: %Stripe.Item{

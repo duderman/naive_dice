@@ -1,7 +1,10 @@
 defmodule NaiveDice.Events.Reset do
+  @moduledoc """
+  Resets a specific event to its original state
+  """
   use NaiveDice, :query
 
-  @spec reset(Stirng.t()) :: {integer, nil | [term]}
+  @spec reset(String.t()) :: {integer, nil | [term]}
   def reset(event_id) do
     event_id
     |> to_query()

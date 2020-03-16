@@ -1,8 +1,11 @@
 defmodule NaiveDice.Tickets.Reservation do
-  alias NaiveDice.{Tickets, Events}
-  alias NaiveDice.Tickets.Ticket
-  alias NaiveDice.Events.Event
+  @moduledoc """
+    Interface for ticket reservation
+  """
+  alias Stripe.CheckoutSession.Creator, as: CheckoutSessionCreator
+  alias NaiveDice.{Events, Events.Event}
   alias NaiveDice.Repo
+  alias NaiveDice.{Tickets, Tickets.Ticket}
 
   @spec reserve(%Event{}, String.t(), String.t()) ::
           {:ok, %Ticket{}}
@@ -13,11 +16,17 @@ defmodule NaiveDice.Tickets.Reservation do
     end)
   end
 
-  def do_reserve(event = %Event{id: event_id}, user_name, callback_url) do
+  defp do_reserve(event = %Event{id: event_id}, user_name, callback_url) do
     with {:ok, :doesnt_exist} <- ticket_exists?(event_id, user_name),
          :ok <- tickets_left?(event),
-         {:ok, checkout_session_id} <- Stripe.CheckoutSession.Creator.create(event, callback_url) do
-      create_ticket(event_id, user_name, checkout_session_id)
+         {:ok, checkout_session_id} <- CheckoutSessionCreator.create(event, callback_url) do
+      %Ticket{}
+      |> Ticket.changeset(%{
+        event_id: event_id,
+        user_name: user_name,
+        checkout_session_id: checkout_session_id
+      })
+      |> Repo.insert()
     end
   end
 
@@ -26,16 +35,6 @@ defmodule NaiveDice.Tickets.Reservation do
       {:error, :not_found} -> {:ok, :doesnt_exist}
       {:ok, ticket} -> {:error, {:exist, ticket}}
     end
-  end
-
-  defp create_ticket(event_id, user_name, checkout_session_id) do
-    %Ticket{}
-    |> Ticket.changeset(%{
-      event_id: event_id,
-      user_name: user_name,
-      checkout_session_id: checkout_session_id
-    })
-    |> Repo.insert()
   end
 
   defp tickets_left?(event = %Event{}) do

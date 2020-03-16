@@ -1,4 +1,7 @@
 defmodule NaiveDice.Events.GuestNamesQuery do
+  @moduledoc """
+  Query returning list of guests for a specific event
+  """
   use NaiveDice, :query
 
   @spec all(String.t()) :: list(String.t())

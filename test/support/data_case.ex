@@ -12,6 +12,8 @@ defmodule NaiveDice.DataCase do
   of the test unless the test case is marked as async.
   """
 
+  alias Ecto.Adapters.SQL.Sandbox, as: SQLSandbox
+
   use ExUnit.CaseTemplate
 
   using do
@@ -26,10 +28,10 @@ defmodule NaiveDice.DataCase do
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(NaiveDice.Repo)
+    :ok = SQLSandbox.checkout(NaiveDice.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(NaiveDice.Repo, {:shared, self()})
+      SQLSandbox.mode(NaiveDice.Repo, {:shared, self()})
     end
 
     :ok

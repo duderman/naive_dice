@@ -1,4 +1,7 @@
 defmodule NaiveDice.ReleaseTasks do
+  @moduledoc """
+  Release tasks like migrations and seeding
+  """
   @start_apps [
     :crypto,
     :ssl,

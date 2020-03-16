@@ -1,4 +1,7 @@
 defmodule Stripe.CheckoutSession.Api do
+  @moduledoc """
+  Provides Stripe API requests
+  """
   use Tesla.Builder
 
   plug Tesla.Middleware.BaseUrl, "https://api.stripe.com/v1/checkout/sessions"

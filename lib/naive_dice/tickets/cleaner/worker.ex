@@ -1,7 +1,12 @@
 defmodule NaiveDice.Tickets.Cleaner.Worker do
+  @moduledoc """
+  GenServer that periodically runs Cleaner
+  """
   @periodicity Application.get_env(:naive_dice, :tickets_cleaning_period, 1000)
 
   use GenServer
+
+  alias NaiveDice.Tickets.Cleaner
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, %{})
@@ -18,11 +23,11 @@ defmodule NaiveDice.Tickets.Cleaner.Worker do
     {:noreply, state}
   end
 
-  defp schedule() do
+  defp schedule do
     Process.send_after(self(), :clean, @periodicity)
   end
 
-  defp clean() do
-    NaiveDice.Tickets.Cleaner.clean()
+  defp clean do
+    Cleaner.clean()
   end
 end

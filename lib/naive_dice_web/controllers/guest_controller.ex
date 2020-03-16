@@ -1,8 +1,8 @@
 defmodule NaiveDiceWeb.GuestController do
   use NaiveDiceWeb, :controller
 
-  alias NaiveDice.Events.{GuestNamesQuery, Reset}
   alias NaiveDice.Events
+  alias NaiveDice.Events.{GuestNamesQuery, Reset}
 
   def index(conn, %{"event_id" => event_id}) do
     with {:ok, _event} <- Events.get_by_id(event_id) do

@@ -2,10 +2,11 @@ defmodule NaiveDiceWeb.PaymentController do
   use NaiveDiceWeb, :controller
 
   alias NaiveDice.Tickets
+  alias Stripe.CheckoutSession.StatusChecker
 
   def process(conn, %{"checkout_session_id" => checkout_session_id}) do
     with {:ok, ticket} <- Tickets.get_by_checkout_session_id(checkout_session_id),
-         {:ok, status} <- Stripe.CheckoutSession.StatusChecker.check(checkout_session_id) do
+         {:ok, status} <- StatusChecker.check(checkout_session_id) do
       case Tickets.update_status(ticket, status) do
         {:ok, %{id: id}} ->
           redirect(conn, to: Routes.ticket_path(conn, :show, id))

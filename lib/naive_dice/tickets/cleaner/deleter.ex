@@ -1,4 +1,8 @@
 defmodule NaiveDice.Tickets.Cleaner.Deleter do
+  @moduledoc """
+  Removes tickets from DB
+  """
+
   use NaiveDice, :query
 
   @spec delete(list(%Ticket{})) :: {integer, nil | [term]}

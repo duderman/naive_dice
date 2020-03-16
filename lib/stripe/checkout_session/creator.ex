@@ -1,6 +1,13 @@
 defmodule Stripe.CheckoutSession.Creator do
-  alias Stripe.Item
+  @moduledoc """
+  Creates a checkout session through Stripe
+  """
+  @dialyzer [
+    {:nowarn_function, create: 2},
+    {:nowarn_function, parse_response: 1}
+  ]
   alias Stripe.CheckoutSession.Api
+  alias Stripe.Item
 
   @spec create(%{title: String.t()}, String.t()) ::
           {:error, String.t()} | {:ok, String.t()}

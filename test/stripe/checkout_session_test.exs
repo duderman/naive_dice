@@ -1,8 +1,9 @@
 defmodule Stripe.CheckoutSessionTest do
+  @moduledoc false
   use ExUnit.Case, async: true
 
   import Tesla.Mock
-  alias Stripe.{Item, CheckoutSession}
+  alias Stripe.{CheckoutSession, Item}
 
   @item %Item{name: "item", amount: 50}
 

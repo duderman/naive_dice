@@ -1,4 +1,8 @@
 defmodule NaiveDiceWeb.ViewHelpers do
+  @moduledoc """
+  Helper methods for views
+  """
+
   use Phoenix.HTML
   import NaiveDiceWeb.Router.Helpers
 

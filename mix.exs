@@ -1,4 +1,5 @@
 defmodule NaiveDice.MixProject do
+  @moduledoc false
   use Mix.Project
 
   def project do
@@ -8,6 +9,7 @@ defmodule NaiveDice.MixProject do
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      dialyzer: [plt_add_deps: :transitive],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -46,7 +48,9 @@ defmodule NaiveDice.MixProject do
       {:tesla, "~> 1.3.0"},
       {:uri_query, "~> 0.1.1"},
       {:mutex, "~> 1.1.0"},
-      {:distillery, "~> 2.0"}
+      {:distillery, "~> 2.0"},
+      {:credo, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 0.5.0", only: [:dev, :test], runtime: false}
     ]
   end
 

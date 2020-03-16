@@ -1,4 +1,5 @@
 defmodule NaiveDice.Tickets do
+  @moduledoc false
   alias NaiveDice.Tickets.Ticket
   alias NaiveDice.{Repo, RepoHelpers}
 
