@@ -4,6 +4,7 @@ APP_NAME ?= `grep 'app:' mix.exs | sed -e 's/\[//g' -e 's/ //g' -e 's/app://' -e
 APP_VSN ?= `grep 'version:' mix.exs | cut -d '"' -f2`
 BUILD ?= `git rev-parse --short HEAD`
 DOCKERHUB_USERNAME ?= duderman
+K8S_FILES ?= `ls -p k8s/ | grep -v / | grep -v .gpg | sed 's/^/k8s\//' | tr '\n' ',' | sed 's/,$$//g'`
 
 build:
 	docker build \
@@ -19,5 +20,8 @@ push:
 
 rollout:
 	kubectl set image deployment/web web=$(DOCKERHUB_USERNAME)/$(APP_NAME):$(BUILD)
+
+apply:
+	kubectl apply -f $(K8S_FILES)
 
 deploy: build push rollout
