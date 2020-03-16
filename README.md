@@ -30,3 +30,4 @@ There are still few things left to do or at least consider. F.e:
 * Scaling is going to be problematic atm. The app uses locking system that relies on some processes living on the same machine. Plus each replica is going to perform its own reservations expiration checks. In future can be sorted using separate systems, extracting required functionality into different apps e.t.c
 * SSL
 * Implement health checks so kubernetes will be able to properly handle deployments and pods availability
+* CI/CD
