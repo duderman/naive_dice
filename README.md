@@ -2,7 +2,7 @@
 
 The app is deployed to managed Kubernetes cluster on DO. Configs can be found in [`k8s`](k8s/) folder. Deploy-related commands are implemented in [`Makefile`](Makefile). Docker image lives in a private DockerHub repository.
 
-[http://app.naivedice.site/](http://app.naivedice.site/)
+[https://app.naivedice.site/](https://app.naivedice.site/)
 
 # Development
 
@@ -28,6 +28,5 @@ There are still few things left to do or at least consider. F.e:
 * Run production migrations from distillery release hooks. At the moment done by manually calling release task inside the app pod
 * Monitoring, log-collection, errors tracking e.t.c
 * Scaling is going to be problematic atm. The app uses locking system that relies on some processes living on the same machine. Plus each replica is going to perform its own reservations expiration checks. In future can be sorted using separate systems, extracting required functionality into different apps e.t.c
-* SSL
 * Implement health checks so kubernetes will be able to properly handle deployments and pods availability
 * CI/CD
