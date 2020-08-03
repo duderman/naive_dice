@@ -11,7 +11,7 @@ use Mix.Config
 # before starting your production server.
 config :naive_dice, NaiveDiceWeb.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "${HOST}", scheme: "http", port: 80],
+  url: [host: "${HOST}", scheme: "https", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   server: true,
   secret_key_base: "${SECRET_KEY_BASE}"
